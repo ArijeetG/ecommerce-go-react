@@ -21,6 +21,16 @@ func SignUpUser(c *fiber.Ctx) error {
 		})
 	}
 
+	// Check if user email exists
+	var user models.User
+	isUserPresent := initializers.DB.First(&user, "email = ?", strings.ToLower(payload.Email))
+	if isUserPresent.RowsAffected > 0 {
+		return c.Status(fiber.StatusConflict).JSON(fiber.Map{
+			"status":  0,
+			"message": "Email exists",
+		})
+	}
+
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(payload.Password), bcrypt.DefaultCost)
 
 	if err != nil {
