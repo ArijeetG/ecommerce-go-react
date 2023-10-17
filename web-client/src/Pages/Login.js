@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import loginBg from "../assets/login-bg.jpeg";
 import { loginSubmit, signupSubmit } from "./network";
 import { Navigate } from "react-router-dom";
