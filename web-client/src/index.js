@@ -5,17 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./Pages/Login";
+import Dashboard from "./Pages/Dashboard";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const router = createBrowserRouter([
   {
-    path: "/login",
-    Component: Login,
+    path: "/",
+    Component: Dashboard,
   },
   {
-    path: "/",
-    Component: App,
+    path: "/login",
+    Component: Login,
   },
 ]);
 

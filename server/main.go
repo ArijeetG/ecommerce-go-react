@@ -25,7 +25,7 @@ func main() {
 	app.Use(logger.New())
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     "*",
-		AllowHeaders:     "Origin, Content-Type, Accept",
+		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowMethods:     "GET, POST",
 		AllowCredentials: true,
 	}))
@@ -49,10 +49,13 @@ func main() {
 			middlerware.ACL,
 			controllers.AddItems)
 
-		router.Get("/get-item",
-			middlerware.DeserializeUser,
+		router.Get("/get-item-by-user",
 			middlerware.DeserializeUser,
 			controllers.GetItemsByUser)
+
+		router.Get("/get-items",
+			middlerware.DeserializeUser,
+			controllers.GetItems)
 	})
 
 	app.Get("/me", middlerware.DeserializeUser, controllers.GetMe)

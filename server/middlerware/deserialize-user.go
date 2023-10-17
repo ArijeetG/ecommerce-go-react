@@ -13,7 +13,7 @@ import (
 func DeserializeUser(c *fiber.Ctx) error {
 	var tokenString string
 	authorization := c.Get("Authorization")
-
+	fmt.Println(authorization)
 	if strings.HasPrefix(authorization, "Bearer ") {
 		tokenString = strings.TrimPrefix(authorization, "Bearer ")
 	} else if c.Cookies("token") != "" {

@@ -8,7 +8,6 @@ import (
 )
 
 func ACL(c *fiber.Ctx) error {
-	log.Println(c.Locals("user").(models.UserResponse))
 	user, ok := c.Locals("user").(models.UserResponse)
 
 	log.Println(user)
@@ -20,7 +19,6 @@ func ACL(c *fiber.Ctx) error {
 	}
 
 	role := user.Role
-	log.Println(role)
 	adminRole := "admin"
 	if role == adminRole {
 		return c.Next()

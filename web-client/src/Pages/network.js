@@ -12,7 +12,6 @@ export const loginSubmit = async (email, password) => {
 };
 
 export const signupSubmit = async (name, email, password) => {
-  console.log(process.env.REACT_APP_BACKEND_URL);
   const request = await axios.post(
     process.env.REACT_APP_BACKEND_URL + "auth/register",
     {
@@ -20,6 +19,19 @@ export const signupSubmit = async (name, email, password) => {
       password,
       name,
       role: "user",
+    }
+  );
+  return request.data;
+};
+
+export const fetchItems = async (token) => {
+  console.log({ token });
+  const request = await axios.get(
+    process.env.REACT_APP_BACKEND_URL + "shop/get-items",
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     }
   );
   return request.data;

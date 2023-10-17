@@ -94,3 +94,26 @@ func GetItemByID(c *fiber.Ctx) error {
 		"data":   models.FilterItemResponse(&item),
 	})
 }
+
+// GetAllItems -> Fetch all items
+func GetItems(c *fiber.Ctx) error {
+	var items []models.Item
+	result := initializers.DB.Preload("Author").Find(&items)
+
+	if result.Error != nil {
+		return c.Status(fiber.StatusConflict).JSON(fiber.Map{
+			"status":  0,
+			"message": "Something bad happened",
+		})
+	}
+
+	var itemResponses []models.ItemResponse
+	for _, item := range items {
+		itemResponses = append(itemResponses, models.FilterItemResponse(&item))
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"status": 1,
+		"data":   itemResponses,
+	})
+}
